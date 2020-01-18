@@ -1,13 +1,9 @@
 import numpy.polynomial.polynomial as np
-import sympy as S
-
-field = 0
-
-def wrap(x):
-    return x % field
+from Field import wrap
 
 
-def encode_msg(kcoefficients, n):
+
+def encode_msg(kcoefficients, n, q):
     alphaValues = []
     encodedMsg = []
     k = len(kcoefficients)
@@ -17,16 +13,7 @@ def encode_msg(kcoefficients, n):
     for i in range(n):
         curr = 0
         for j in range(k):
-            curr = wrap(curr+wrap(wrap((i**j))*kcoefficients[j]))
+            curr = wrap(curr + (i ** j) * kcoefficients[j], q)
         encodedMsg.append(curr)
     return alphaValues, encodedMsg
 
-
-msg = "Test"
-field = 151
-L = list(msg)
-kcoefficients = list(map(ord, L))
-print(kcoefficients)
-kcoefficients = list(map(wrap, kcoefficients))
-(alphaValues, encodedMsg) = encode_msg(kcoefficients, 20)
-print(encodedMsg)
