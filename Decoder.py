@@ -11,7 +11,7 @@ def decode_msg(xValues, encodedMsg, q, n, k):
     degY = int(sqrt(n / k))
     matrix = []
     for i in range(n):
-        matrix.append(get_matrx_row(xValues[i], encodedMsg[i], degX, degY, q))
+        matrix.append(get_matrix_row(xValues[i], encodedMsg[i], degX, degY, q))
     A = Matrix(GF(q), matrix)
     Qopts = A.right_kernel()
     R = GF(q)['x, y'].gens()
@@ -32,7 +32,7 @@ def decode_msg(xValues, encodedMsg, q, n, k):
     return correctfactors
 
 
-def get_matrx_row(xValue, Yvalue, degX, degY, q):
+def get_matrix_row(xValue, Yvalue, degX, degY, q):
     matrixRow = []
     for i in range(degX + 1):
         for j in range(degY + 1):
